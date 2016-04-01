@@ -1,0 +1,305 @@
+<div ng-controller="homeController as vm">
+  <md-toolbar  style="height: 80px;">
+    <div layout layout-align="center center">
+      <h4>Simulador de SO - I <md-icon class="md-secondary" style="color:red">favorite</md-icon> SO </h4>
+      <!--<md-button class="md-raised md-primary" ng-click="vm.prueba()">FIFO</md-button>-->
+    </div>
+    <!-- <input ng-click="vm.UploadArchivo()" class="input" name="file" id="archivo" type="file" on-read-file="LecturaArchivo($fileContent)" /> -->
+    <button ng-click="vm.UploadArchivo()" type="submit" class="fileButton" id="cargar" style="display: none;">Cargar Archivo</button>
+    <input id="upFile" type="file" on-read-file="vm.LecturaArchivo($fileContent)" />
+  </md-toolbar>
+  <md-card-content layout-xs="column" layout="row">
+    <div flex="20" layout="column">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Proceso Actual</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content style="margin-bottom:0px;" style="padding-bottom:0px;">
+          <div layout="row" flex="100">
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>Nombre</label>
+              <input ng-model="vm.nombrePA" disabled><hr/>
+            </md-input-container>
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>Llegada</label>
+              <input ng-model="vm.llegadaPA" disabled><hr/>
+            </md-input-container>
+          </div>
+          <div layout="row" flex="100">
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>CPU asignado</label>
+              <input ng-model="vm.cpuaPA" disabled><hr/>
+            </md-input-container>
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>Envejecimiento</label>
+              <input ng-model="vm.envejecimientoPA" disabled><hr/>
+            </md-input-container>
+          </div>
+          <div layout="row" flex="100">
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>CPU Restante</label>
+              <input ng-model="vm.timeUntilCompletePA" disabled><hr/>
+            </md-input-container>
+            <md-input-container flex="50" style="margin-bottom:0px;">
+              <label>Quantum Restante</label>
+              <input ng-model="vm.quantumresPA" disabled ><hr/>
+            </md-input-container>
+          </div>
+        </md-card-content>
+        <md-card-content style="margin-bottom:0px;" style="padding-top:0px;">
+          <!-- <p ng-model="vm.nombrePA" disabled><hr/> -->
+          <label>Página</label>
+          <div layout="column">
+            <div layout="row" style="margin-top:15px">
+              <div flex="33" layout layout-align="center center">
+                <md-checkbox class="md-secondary" ng-model="vm.toppingUno" ng-disabled="vm.disableUno!=true" ng-click="vm.Toppings(1)">
+                  1
+                </md-checkbox>
+              </div>
+              <div flex="33" layout layout-align="center center">
+                <md-checkbox class="md-secondary" ng-model="vm.toppingDos" ng-disabled="vm.disableDos!=true" ng-click="vm.Toppings(2)">
+                  2
+                </md-checkbox>
+              </div>
+              <div flex="33" layout layout-align="center center">
+                <md-checkbox class="md-secondary" ng-model="vm.toppingTres" ng-disabled="vm.disableTres!=true" ng-click="vm.Toppings(3)">
+                  3
+                </md-checkbox>
+              </div>
+            </div>
+          </div>
+        </md-card-content>
+        <md-button class="md-raised md-primary" ng-click="vm.Ejecutarpg()">Ejecutar Página</md-button>
+      </md-card>
+    </div>
+    <div flex-xs flex-gt-xs="45" layout="column">
+      <div layout="row">
+        <md-card flex="40">   <!-- card de memoria -->
+          <md-card-title>
+              <span class="md-headline">Memoria</span>
+          </md-card-title>
+              <div layout layout-align="center center">
+                <md-button class="md-raised md-primary" ng-click="vm.AlgoritmoMemoria(1)">FIFO</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.AlgoritmoMemoria(2)">LRU</md-button>
+              </div>
+              <div layout layout-align="center center">
+                <md-button class="md-raised md-primary" ng-click="vm.AlgoritmoMemoria(3)">LFU</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.AlgoritmoMemoria(4)">NUR</md-button>
+              </div>
+          <md-divider></md-divider>
+          <md-button class="md-raised md-primary" ng-disabled="vm.numalgoritmoMemoria!=4" ng-click="vm.ResetNUR()">Bits Reset</md-button>
+        </md-card>    <!-- acaba card de memoria -->
+
+        <md-card flex="60">     <!-- card de CPU -->
+          <md-card-title>
+              <span class="md-headline">CPU</span>
+          </md-card-title>
+              <div layout layout-align="start center">
+                <md-button class="md-raised md-primary" ng-click="vm.CambiarAlgoritmo2(2)">FIFO</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.CambiarAlgoritmo2(3)">SJF</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.CambiarAlgoritmo2(1)">RR</md-button>
+              </div>
+              <div layout layout-align="start center">
+                <md-button class="md-raised md-primary" ng-click="vm.CambiarAlgoritmo2(5)">HRRN</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.CambiarAlgoritmo2(4)">SRT</md-button>
+              </div>
+              <md-divider></md-divider>
+              <div layout layout-align="start center">
+                <md-input-container style="height:15px;" style="margin-bottom:10px;">
+                  <label>Quantum</label>
+                  <input id="quantum0" ng-disabled="vm.numalgoritmoCPU!=1"><hr/>
+                </md-input-container>
+                  <md-button class="md-raised md-primary" ng-click="vm.obtenerQ()">Insertar</md-button>
+              </div>
+        </md-card>    <!-- acaba card de CPU -->
+      </div>
+
+
+
+      <md-card>   <!-- card de lista -->
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Tabla de páginas del proceso actual</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <md-list>
+            <md-subheader class="md-no-sticky">
+              <div layout="columns"  flex layout layout-align="start center">
+                <div flex="10" layout layout-align="start center"> Pag </div>
+                <div flex="10" layout layout-align="start center"> R </div>
+                <div flex="15" layout layout-align="start center"> Llegada </div>
+                <div flex="30" layout layout-align="start center"> Ult. Acceso </div>
+                <div flex="15" layout layout-align="start center"> Accesos </div>
+                <div flex="20" layout layout-align="start center"> NUR </div>
+              </div>
+            </md-subheader>
+            <!--se termina subheader y empieza la lista -->
+            <md-divider></md-divider>
+           <md-list-item ng-repeat="lista in vm.lista" ng-click="vm.prueba(fecha)">
+             <!--<tr ng-repeat="friend in friends | orderBy:predicate:reverse">-->
+             <div flex="100" layout layout-align="start center" class="md-icon-button" style="height:20px;">
+               <div flex="10" layout layout-align="center center">
+                 <p>{{ lista.pgs}}</p>
+               </div>
+               <div flex="10" layout layout-align="start center">
+                 <p>{{ lista.r}}</p>
+               </div>
+               <div flex="15" layout layout-align="start center">
+                 <p> {{ lista.arrivalTime }} </p>
+               </div>
+               <div flex="25" layout layout-align="start center">
+                 <p> {{ lista.ultacc }} </p>
+               </div>
+               <div flex="15" layout layout-align="start center">
+                 <p> {{ lista.numacc }} </p>
+               </div>
+               <div flex="20" layout layout-align="start center">
+                 <p> {{ lista.nurUno }} </p>
+                 <p> {{ lista.nurDos }} </p>
+               </div>
+             </div>
+             <md-divider></md-divider>
+           </md-list-item>
+         </md-list>
+        </md-card-content>
+      </md-card>    <!-- acaba card de lista -->
+    </div>
+    <div flex-xs flex-gt-xs="20" layout="column">
+    <md-card>   <!-- card de interrupciones -->
+      <md-card-title>
+          <span class="md-headline">Solicitud de Interrupción</span>
+      </md-card-title>
+      <md-card-content>
+      <md-list-item>
+        <div layout layou-align="end center">
+          <p>Interrupciones</p>
+        </div>
+      <!-- Cuadro de menu de opciones -->
+        <div layout="column" flex-sm="5" layout-align="center center">
+          <md-menu md-offset="0 -7">
+            <md-button id="idInterrup" aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </md-button>
+            <md-menu-content width="3"  >
+              <md-menu-item>
+                <md-button value="1" ng-click="vm.Interrupciones(1)">
+                    SVC Terminación Anormal
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button value="2" ng-click="vm.Interrupciones(2)">
+                    SVC Terminación Normal
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button value="3" ng-click="vm.Interrupciones(3)">
+      		    	  SVC Solicitud de I/O
+                </md-button>
+              </md-menu-item>
+      	      <md-menu-item>
+                <md-button value="4" ng-click="vm.Interrupciones(4)">
+      		    	  SVC Solicitud de Recurso
+                </md-button>
+              </md-menu-item>
+      	      <md-menu-item>
+                <md-button value="5" ng-click="vm.Interrupciones(5)">
+      		    	  Fallas de Programa
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button value="6" ng-click="vm.Interrupciones(6)">
+      		    	  Externa - Quantum Expirado
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button value="7" ng-click="vm.Interrupciones(7)">
+      		    	  Dispositivo de I/O
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div><!--TERMINA menu de opciones -->
+      </md-list-item>
+    </md-card-content>
+    </md-card>   <!-- acaba card de interrupciones -->
+    <md-card>   <!-- card de proceso -->
+      <md-card-title>
+          <span class="md-headline">Nuevo Proceso</span>
+      </md-card-title>
+      <md-card-content layout="row">
+        <md-input-container flex="30" style="height:20px;">
+          <label>Nombre</label>
+          <input ng-model="vm.nombreN" disabled><hr/>
+        </md-input-container>
+        <md-input-container flex="30" flex-offset="5" style="height:20px;">
+          <label>Páginas</label>
+          <input id="page"><hr/>
+        </md-input-container>
+        <md-input-container flex="30" flex-offset="5" style="height:20px;">
+          <label>Ejecución total</label>
+          <input id="burstTime"><hr/>
+        </md-input-container>
+      </md-card-content>
+      <md-button class="md-raised md-primary" ng-click="vm.CreateProceso()">CREAR NUEVO</md-button>
+    </md-card>     <!-- acaba card de proceso -->
+  </div>
+  <div flex-xs flex-gt-xs="15">
+    <md-card>
+      <md-card-title>
+          <md-input-container flex="100" layout="column">
+          <span class="md-headline">Tiempo Actual: {{vm.tiempoA}}</span>
+          </md-input-container>
+      </md-card-title>
+      <md-card-content>
+      <div layout="column" layout-align="center center" flex="100">
+        <md-card-actions layout-align="start center">
+          <md-card style="background-color:olive; color:white;">
+            <md-card-title>
+              <md-card-title-text>
+                <span id="Ready" class="md-headline">{{vm.finalResults.score}}</span>
+                <span class="md-subhead">Ready</span>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+        </md-card-actions>
+        <md-card-actions layout-align="start center">
+          <md-card style="background-color:lime; color:white;">
+            <md-card-title>
+              <md-card-title-text>
+                <span id="Running" class="md-headline"></span>
+                <span class="md-subhead">Running</span>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+        </md-card-actions>
+        <md-card-actions layout-align="start center">
+          <md-card style="background-color:red; color:white;">
+            <md-card-title>
+              <md-card-title-text>
+                <span id="Blocked" class="md-headline"></span>
+                <span class="md-subhead">Blocked</span>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+        </md-card-actions>
+        <md-card-actions layout-align="start center">
+          <md-card style="background-color:teal; color:white;">
+            <md-card-title>
+              <md-card-title-text>
+                <span id="Finished" class="md-headline"></span>
+                <span class="md-subhead">Finished</span>
+              </md-card-title-text>
+            </md-card-title>
+          </md-card>
+          <!--<md-button class="md-raised md-primary" ng-click="vm.prueba()">FIFO</md-button>-->
+        </md-card-actions>
+      </div>
+      <!--<md-button class="md-raised md-primary" ng-click="vm.prueba()">FIFO</md-button>-->
+      </md-card-content>
+    </md-card>
+  </div>
+  </md-card-content>
+</div>
